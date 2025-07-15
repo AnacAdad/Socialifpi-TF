@@ -1,4 +1,4 @@
-export  class Comentario {
+export class Comentario {
     constructor(
         private id: number,
         private postagemId: number,
@@ -26,4 +26,9 @@ export  class Comentario {
     public getData(): Date {
         return this.data;
     }
+
+    public setTexto(novoTexto: string): void {
+        this.texto = novoTexto;
+    }
+
 }

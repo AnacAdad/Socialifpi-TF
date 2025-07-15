@@ -1,14 +1,79 @@
+import * as fs from 'fs';
 import { Postagem } from './Postagem';
 import { Comentario } from './comentario';
+
+const CAMINHO_ARQUIVO = './postagens.json';
 
 export class RepositorioDePostagens {
     private postagens: Postagem[] = [];
     private nextId: number = 1;
 
+    // === ALTERAÇÃO ===
+    // Construtor criado para carregar os dados do json
+    constructor() {
+        this.carregarDoArquivo();
+    }
+
+    // === ALTERAÇÃO ===
+    // Método para salvar dados no arquivo json
+    public salvarNoArquivo() {
+        const postagensObj = this.postagens.map(p => ({
+            id: p.getId(),
+            titulo: p.getTitulo(),
+            conteudo: p.getConteudo(),
+            data: p.getData().toISOString(),
+            curtidas: p.getCurtidas(),
+            comentarios: p.getComentarios().map(com => ({
+                id: com.getId(),
+                postagemId: com.getPostagemId(),
+                autor: com.getAutor(),
+                texto: com.getTexto(),
+                data: com.getData().toISOString()
+            }))
+        }));
+        fs.writeFileSync(CAMINHO_ARQUIVO, JSON.stringify(postagensObj, null, 2));
+    }
+
+    // === ALTERAÇÃO ===
+    // Método para carregar os dados do arquivo json
+    private carregarDoArquivo(): void {
+        try {
+            if (!fs.existsSync(CAMINHO_ARQUIVO)) {
+                this.postagens = [];
+                return;
+            }
+            
+            const dados = fs.readFileSync(CAMINHO_ARQUIVO, 'utf-8').trim();
+            if (!dados) {  // arquivo vazio
+                this.postagens = [];
+                return;
+            }
+
+            const json = JSON.parse(dados);
+
+            // Supondo que você precise converter os dados para objetos Postagem:
+            this.postagens = json.map((obj: any) => new Postagem(
+                obj.id,
+                obj.titulo,
+                obj.conteudo,
+                new Date(obj.data),
+                obj.curtidas
+            ));
+        } catch (error) {
+            console.error('Erro ao carregar postagens do arquivo:', error);
+            this.postagens = [];
+        }
+    }
+
+
+
     // Método para incluir uma nova postagem
     public incluir(postagem: Postagem): Postagem {
         postagem['id'] = this.nextId++;
         this.postagens.push(postagem);
+        // === ALTERAÇÃO ===
+        // Chama o método para salvar os dados no json
+        this.salvarNoArquivo();
         return postagem;
     }
 
@@ -20,6 +85,9 @@ export class RepositorioDePostagens {
             postagem['conteudo'] = conteudo;
             postagem['data'] = data;
             postagem['curtidas'] = curtidas;
+            // === ALTERAÇÃO ===
+            // Chama o método para salvar os dados no json
+            this.salvarNoArquivo();
             return true;
         }
         return false;
@@ -35,6 +103,9 @@ export class RepositorioDePostagens {
         const index = this.postagens.findIndex(postagem => postagem.getId() == id);
         if (index != -1) {
             this.postagens.splice(index, 1);
+            // === ALTERAÇÃO ===
+            // Para salvar a atualização da exclusão no json
+            this.salvarNoArquivo();  
             return true;
         }
         return false;
@@ -45,11 +116,15 @@ export class RepositorioDePostagens {
         const postagem = this.consultar(id);
         if (postagem) {
             postagem['curtidas'] = postagem.getCurtidas() + 1;
+            // === ALTERAÇÃO ===
+            // Chama o método para salvar os dados no json
+            this.salvarNoArquivo();
             return postagem.getCurtidas();
         }
         return null;
     }
-
+    // === ALTERAÇÃO ===
+    /* ====== RETIRANDO POSTAGENS ESTÁTICAS PARA SER POSSÍVEL ADICIONAR DINAMICAMENTE =======
     // Método para gerar uma data aleatória dentro de um intervalo de anos
     private gerarDataAleatoria(anosPassados: number = 5): Date {
         const hoje = new Date();
@@ -60,6 +135,7 @@ export class RepositorioDePostagens {
         return new Date(anoAleatorio, mesAleatorio, diaAleatorio);
     }
 
+   
     // Método para povoar o array com instâncias de Postagem com datas aleatórias e conteúdos mais longos
     public povoar(): void {
         this.incluir(new Postagem(
@@ -163,9 +239,13 @@ export class RepositorioDePostagens {
             13
         ));
     }
+    */
 
     // Método para listar todas as postagens
     public listar(): Postagem[] {
         return this.postagens.sort((a, b) => new Date(b.getData()).getTime() - new Date(a.getData()).getTime());
     }
 }
+
+
+

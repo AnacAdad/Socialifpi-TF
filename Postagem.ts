@@ -1,4 +1,5 @@
 import { Comentario } from "./comentario";
+
 export class Postagem {
     private id: number;
     private titulo: string;
@@ -40,5 +41,9 @@ export class Postagem {
 
     public adicionarComentario(comentario: Comentario): void {
         this.comentarios.push(comentario);
+    }
+
+    public removerComentario(idComentario: number): void {
+        this.comentarios = this.comentarios.filter(c => c.getId() !== idComentario);
     }
 }

@@ -1,5 +1,6 @@
 import express, { NextFunction, Request, Response } from 'express';
 import { RepositorioDePostagens } from './RepositorioDePostagens';
+import { Comentario } from './comentario';
 import { Postagem } from './Postagem';
 import cors from 'cors';
 
@@ -15,12 +16,15 @@ app.use(express.json());
 app.use(cors());
 
 // Povoar o repositório com postagens iniciais
-repositorio.povoar();
+//repositorio.povoar();
 
 // Endpoint para raiz
 const PATH: string = '/socialifpi/postagem';
 const PATH_ID: string = PATH + '/:id';
 const PATH_CURTIR = PATH_ID + '/curtir';
+const PATH_COMENTARIOS = PATH_ID + '/comentarios';
+const PATH_COMENTARIO_ID = PATH_COMENTARIOS + '/:comentarioId';
+
 
 
 
@@ -92,6 +96,82 @@ app.post(PATH_CURTIR, (req: Request, res: Response) => {
     
     res.json({ message: 'Postagem curtida com sucesso', curtidas });
 });
+
+// === ALTERAÇÃO ===
+// Endpoint para adicionar comentário em uma postagem
+app.post(`${PATH_ID}/comentario`, (req: Request, res: Response) => {
+  const id = parseInt(req.params.id);
+  const { autor, texto } = req.body;
+
+  if (!autor || !texto) {
+    return res.status(400).json({ message: 'Autor e texto são obrigatórios.' });
+  }
+
+  const postagem = repositorio.consultar(id);
+  if (!postagem) {
+    return res.status(404).json({ message: 'Postagem não encontrada' });
+  }
+
+  const comentario = new Comentario(
+    Date.now(),
+    id,
+    autor,
+    texto,
+    new Date()
+  );
+
+  postagem.adicionarComentario(comentario);
+  repositorio.salvarNoArquivo();
+
+  res.status(201).json(comentario);
+});
+
+// === ALTERAÇÃO ===
+// DELETE comentário
+app.delete(PATH_COMENTARIO_ID, (req, res) => {
+  const postagemId = parseInt(req.params.id); // antes: req.params.postagemId
+  const comentarioId = parseInt(req.params.comentarioId);
+
+  const postagem = repositorio.consultar(postagemId);
+  if (!postagem) {
+    return res.status(404).json({ message: 'Postagem não encontrada' });
+  }
+
+  postagem.removerComentario(comentarioId);
+  repositorio.salvarNoArquivo();
+
+  res.status(204).send();
+});
+
+
+// === ALTERAÇÃO ===
+// PUT para alterar comentário
+app.put(PATH_COMENTARIO_ID, (req, res) => {
+  const postagemId = parseInt(req.params.id); // antes: req.params.postagemId
+  const comentarioId = parseInt(req.params.comentarioId);
+  const { texto } = req.body;
+
+  if (!texto || texto.trim() === '') {
+    return res.status(400).json({ message: 'Texto do comentário é obrigatório' });
+  }
+
+  const postagem = repositorio.consultar(postagemId);
+  if (!postagem) {
+    return res.status(404).json({ message: 'Postagem não encontrada' });
+  }
+
+  const comentarios = postagem.getComentarios();
+  const comentario = (comentarios || []).find(c => c.getId() === comentarioId);
+  if (!comentario) {
+    return res.status(404).json({ message: 'Comentário não encontrado' });
+  }
+
+  comentario.setTexto(texto);
+  repositorio.salvarNoArquivo();
+
+  res.status(200).json(comentario);
+});
+
 
 // Inicializar o servidor na porta 3000
 const PORT = 3000;
