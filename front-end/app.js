@@ -34,16 +34,26 @@ function listarPostagens() {
                 // Botões principais
                 const botoesDiv = document.createElement('div');
                 botoesDiv.className = 'botoes-postagem';
+
                 const botaoCurtir = document.createElement('button');
                 botaoCurtir.textContent = 'Curtir';
                 botaoCurtir.addEventListener('click', () => curtirPostagem(postagem.id, curtidas));
+
                 const botaoExcluir = document.createElement('button');
                 botaoExcluir.textContent = 'Excluir';
                 botaoExcluir.addEventListener('click', () => excluirPostagem(postagem.id));
+
+                const botaoEditar = document.createElement('button');
+                botaoEditar.textContent = 'Editar';
+                botaoEditar.addEventListener('click', () => editarPostagem(postagem.id));
+
+                
                 const botaoComentar = document.createElement('button');
                 botaoComentar.textContent = 'Comentar';
+
                 botoesDiv.appendChild(botaoCurtir);
                 botoesDiv.appendChild(botaoExcluir);
+                botoesDiv.appendChild(botaoEditar);
                 botoesDiv.appendChild(botaoComentar);
                 // Seção de comentários
                 const comentariosSection = document.createElement('section');
@@ -253,24 +263,23 @@ function excluirPostagem(id) {
 
 // === ALTERAÇÃO === editar postagem
 function editarPostagem(id){
-    const novaPostagem = prompt('Digite o novo conteúdo da postagem:');
     const novoTitulo = prompt('Digite o novo título da postagem:');
-    if(novaPostagem && novoTitulo){}
-         fetch(`http://localhost:3000/socialifpi/postagem/${id}`, {
+    const novoConteudo = prompt('Digite o novo conteúdo da postagem:');
+
+    if(novoTitulo && novoConteudo){
+        fetch(`${apiUrl}/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 titulo: novoTitulo,
-                conteudo: novaPostagem,
-                data: new Date().toISOString(),
-                curtidas: 0
+                conteudo: novoConteudo
             })
         })
         .then(response => {
             if (response.ok) {
-                listarPostagens(); // Atualiza a lista de postagens
+                listarPostagens();
             } else {
                 alert('Erro ao editar postagem');
             }
@@ -278,9 +287,12 @@ function editarPostagem(id){
         .catch(error => {
             console.error('Erro ao editar postagem:', error);
             alert('Erro ao editar postagem');
-        }
-    );
+        });
+    } else {
+        alert('Preencha título e conteúdo!');
+    }
 }
+
 
 // Inicializa a aplicação
 listarPostagens();
