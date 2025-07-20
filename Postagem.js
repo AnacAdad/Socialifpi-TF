@@ -9,6 +9,13 @@ class Postagem {
         this.conteudo = conteudo;
         this.data = data;
         this.curtidas = curtidas;
+        this.imagem = this.imagem;
+    }
+    setImagem(imagem) {
+        this.imagem = imagem;
+    }
+    SetImagem(imagem) {
+        this.imagem = imagem;
     }
     getId() {
         return this.id;

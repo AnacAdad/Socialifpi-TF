@@ -23,6 +23,7 @@ export class RepositorioDePostagens {
             conteudo: p.getConteudo(),
             data: p.getData().toISOString(),
             curtidas: p.getCurtidas(),
+            imagem: p.getImagem(), // Adicionando a propriedade imagem
             comentarios: p.getComentarios().map(com => ({
                 id: com.getId(),
                 postagemId: com.getPostagemId(),
@@ -57,7 +58,8 @@ export class RepositorioDePostagens {
                 obj.titulo,
                 obj.conteudo,
                 new Date(obj.data),
-                obj.curtidas
+                obj.curtidas,
+                obj.imagem
             ));
         } catch (error) {
             console.error('Erro ao carregar postagens do arquivo:', error);

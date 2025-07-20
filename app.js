@@ -39,8 +39,9 @@ app.get(PATH_ID, (req, res) => {
 });
 // Endpoint para incluir uma nova postagem
 app.post(PATH, (req, res) => {
-    const { titulo, conteudo, data, curtidas } = req.body;
-    const novaPostagem = new Postagem_1.Postagem(0, titulo, conteudo, new Date(data), curtidas || 0);
+    const { titulo, conteudo, data, curtidas, imagem } = req.body;
+    const novaPostagem = new Postagem_1.Postagem(0, titulo, conteudo, new Date(data), curtidas || 0, imagem);
+    //novaPostagem.setImagem(imagem);
     const postagemIncluida = repositorio.incluir(novaPostagem);
     res.status(201).json(postagemIncluida);
 });

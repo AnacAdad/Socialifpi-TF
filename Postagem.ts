@@ -6,14 +6,20 @@ export class Postagem {
     private conteudo: string;
     private data: Date;
     private curtidas: number;
+    private imagem: string; // Adicionando a propriedade imagem
     private comentarios: Comentario[] = [];
 
-    constructor(id: number, titulo: string, conteudo: string, data: Date, curtidas: number) {
+    constructor(id: number, titulo: string, conteudo: string, data: Date, curtidas: number, imagem: string = "") {
         this.id = id;
         this.titulo = titulo;
         this.conteudo = conteudo;
         this.data = data;
         this.curtidas = curtidas;
+        this.imagem = imagem;       
+    }
+
+    public getImagem(): string {
+        return this.imagem;
     }
 
     public getId(): number {
