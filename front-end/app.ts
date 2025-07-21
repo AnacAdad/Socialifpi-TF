@@ -25,6 +25,7 @@ interface Postagem {
     tags?: string[]; 
 }
 
+
 async function listarPostagens(filtroTag?: string) {
     
     const response = await fetch(apiUrl);

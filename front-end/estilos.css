@@ -407,4 +407,24 @@ footer p {
   }
 }
 
+#botao-proximas {
+  background-color: #007bff; /* azul padrão */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 20px auto;
+  display: block;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  user-select: none;
+}
+
+#botao-proximas:hover {
+  background-color: #0056b3; /* azul mais escuro no hover */
+}
+
+
 /* === ALTERAÇÃO === */
