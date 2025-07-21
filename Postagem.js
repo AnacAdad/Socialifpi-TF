@@ -2,7 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Postagem = void 0;
 class Postagem {
-    constructor(id, titulo, conteudo, data, curtidas, imagem) {
+    ;
+    constructor(id, titulo, conteudo, data, curtidas, imagem, tags = []) {
         this.comentarios = [];
         this.id = id;
         this.titulo = titulo;
@@ -10,6 +11,7 @@ class Postagem {
         this.data = data;
         this.curtidas = curtidas;
         this.imagem = imagem;
+        this.tags = tags;
     }
     getId() {
         return this.id;
@@ -40,6 +42,12 @@ class Postagem {
     }
     setImagem(novaImagem) {
         this.imagem = novaImagem;
+    }
+    getTags() {
+        return this.tags || [];
+    }
+    setTags(tags) {
+        this.tags = tags;
     }
     adicionarComentario(comentario) {
         this.comentarios.push(comentario);

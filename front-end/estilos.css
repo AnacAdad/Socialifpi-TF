@@ -352,5 +352,59 @@ footer p {
     border-radius: 8px;
 }
 
+/* Container do campo de busca e botões */
+#busca-tag-container {
+  margin: 20px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Campo de input para buscar tag */
+#campo-busca-tag {
+  flex-grow: 1;
+  min-width: 200px;
+  padding: 8px 12px;
+  font-size: 1rem;
+  border-radius: 6px;
+  transition: border-color 0.3s ease;
+}
+
+#campo-busca-tag:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Botões de buscar e limpar */
+#botao-buscar-tag,
+#botao-limpar-busca {
+  background-color: #121314;
+  color: white;
+  border: none;
+  padding: 9px 18px;
+  font-size: 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+
+#botao-buscar-tag:hover,
+#botao-limpar-busca:hover {
+  background-color: #0056b3;
+}
+
+/* Responsivo: no mobile, botões ficam em linha abaixo do input */
+@media (max-width: 480px) {
+  #busca-tag-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  #botao-buscar-tag,
+  #botao-limpar-busca {
+    width: 100%;
+    padding: 10px 0;
+  }
+}
 
 /* === ALTERAÇÃO === */

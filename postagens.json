@@ -1,11 +1,34 @@
 [
   {
+    "id": 4,
+    "titulo": "Doença Celíaca",
+    "conteudo": "A doença celíaca é uma condição autoimune desencadeada pela ingestão de glúten, uma proteína encontrada em trigo, cevada e centeio. Os sintomas podem variar amplamente, mas incluem diarreia, dor abdominal, inchaço, fadiga e perda de peso. O tratamento principal é uma dieta rigorosa sem glúten, que geralmente leva à remissão dos sintomas e à recuperação do intestino.",
+    "data": "2025-07-21T02:01:39.270Z",
+    "curtidas": 1,
+    "imagem": "https://checkupmedicina.com.br/wp-content/uploads/2025/01/image-12.png",
+    "tags": [
+      "Saúde"
+    ],
+    "comentarios": [
+      {
+        "id": 1753063358203,
+        "postagemId": 4,
+        "autor": "Sâmia",
+        "texto": "Doença bem complicada essa =(",
+        "data": "2025-07-21T02:02:38.203Z"
+      }
+    ]
+  },
+  {
     "id": 3,
     "titulo": "Tudo sobre Tecnologia",
-    "conteudo": "Tecnologia é um termo que se refere a qualquer ferramenta, dispositivo ou processo que seja criado para resolver problemas ou melhorar a vida das pessoas. Ela inclui desde objetos simples do cotidiano, como relógios e calculadoras, até sistemas complexos, como computadores e redes de telecomunicações. A tecnologia tem um papel fundamental na evolução da sociedade, impulsionando o progresso em áreas como saúde, comunicação, transportes, energia e meio ambiente. Além disso, o setor de tecnologia tem se mostrado uma das principais forças econômicas do mundo, gerando empregos, estimulando a inovação e impulsionando o crescimento das empresas e das economias globais.\nPublicações sobre Tecnologia",
-    "data": "2025-07-21T00:57:12.817Z",
-    "curtidas": 1,
+    "conteudo": "Tecnologia é um termo que se refere a qualquer ferramenta, dispositivo ou processo que seja criado para resolver problemas ou melhorar a vida das pessoas. Ela inclui desde objetos simples do cotidiano, como relógios e calculadoras, até sistemas complexos, como computadores e redes de telecomunicações. A tecnologia tem um papel fundamental na evolução da sociedade, impulsionando o progresso em áreas como saúde, comunicação, transportes, energia e meio ambiente. Além disso, o setor de tecnologia tem se mostrado uma das principais forças econômicas do mundo, gerando empregos, estimulando a inovação e impulsionando o crescimento das empresas e das economias globais.",
+    "data": "2025-07-21T01:59:42.947Z",
+    "curtidas": 0,
     "imagem": "https://scansource.com.br/wp-content/uploads/2024/02/Imagem-Principal.jpg",
+    "tags": [
+      "Tecnologia"
+    ],
     "comentarios": []
   },
   {
@@ -14,6 +37,8 @@
     "conteudo": "Engloba todas os conteúdos da disciplina e um pouco mais.",
     "data": "2025-07-21T00:20:12.876Z",
     "curtidas": 2,
+    "imagem": "",
+    "tags": [],
     "comentarios": [
       {
         "id": 1753057226935,

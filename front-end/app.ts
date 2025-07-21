@@ -22,17 +22,24 @@ interface Postagem {
     curtidas: number;
     comentarios: Comentario[];
     imagem?: string; 
+    tags?: string[]; 
 }
 
-async function listarPostagens() {
+async function listarPostagens(filtroTag?: string) {
+    
     const response = await fetch(apiUrl);
     const postagens: Postagem[] = await response.json();
+
+    const postagensFiltradas = filtroTag
+        ? postagens.filter(p => p.tags && p.tags.includes(filtroTag))
+        : postagens;
+
 
     const postagensElement = getById('postagens');
     if (postagensElement) {
         postagensElement.innerHTML = '';  // Limpa as postagens anteriores
 
-        postagens.forEach(postagem => {
+        postagensFiltradas.forEach(postagem => {
             const article = document.createElement('article');
 
             const titulo = document.createElement('h2');
@@ -40,6 +47,13 @@ async function listarPostagens() {
 
             const conteudo = document.createElement('p');
             conteudo.textContent = postagem.conteudo;
+
+            if (postagem.tags && postagem.tags.length > 0) {
+                const tagsElement = document.createElement('p');
+                tagsElement.textContent = `Tags: ${postagem.tags.join(', ')}`;
+                tagsElement.className = 'tags-postagem';
+                article.appendChild(tagsElement);
+            }
 
             if (postagem.imagem) {
                 const img = document.createElement('img');
@@ -195,6 +209,22 @@ async function listarPostagens() {
     }
 }
 
+async function buscarPorTag() {
+    const campo = document.getElementById('campo-busca-tag') as HTMLInputElement | null;
+    if (!campo) {
+        console.error('Campo de busca não encontrado!');
+        return;
+    }
+
+    const tag = campo.value.trim();
+    if (tag) {
+        listarPostagens(tag);  // Chama com filtro
+    } else {
+        listarPostagens();     // Lista tudo
+    }
+}
+
+
 // === ALTERAÇÃO ===
 async function excluirComentario(postagemId: number, comentarioId: number) {
   const confirmar = confirm("Tem certeza que deseja excluir este comentário?");
@@ -287,6 +317,7 @@ async function incluirPostagem() {
     const tituloInput = <HTMLInputElement>getById('titulo');
     const conteudoInput = <HTMLInputElement>getById('conteudo');
     const imagemInput = <HTMLInputElement>getById('imagem');
+    const tagsInput = <HTMLInputElement>getById('tags');
 
     if (tituloInput && conteudoInput) {
         const novaPostagem = {
@@ -294,7 +325,8 @@ async function incluirPostagem() {
             conteudo: conteudoInput.value,
             data: new Date().toISOString(),
             curtidas: 0,
-            imagem: imagemInput?.value || ''
+            imagem: imagemInput?.value || '',
+            tags: tagsInput?.value.split(',').map(tag => tag.trim()).filter(tag => tag !== '') || []
         };
 
         const response = await fetch(apiUrl, {
@@ -311,6 +343,8 @@ async function incluirPostagem() {
         // Limpa os campos do formulário
         tituloInput.value = '';
         conteudoInput.value = '';
+        imagemInput.value = '';
+        if (tagsInput) tagsInput.value = '';
 
     }
 }
@@ -359,5 +393,23 @@ listarPostagens();
 const botaoNovaPostagem = getById("botaoNovaPostagem");
 if (botaoNovaPostagem) {
     botaoNovaPostagem.addEventListener('click', incluirPostagem);
+}
+
+// Botão para buscar por tag
+const botaoBuscarTag = getById('botao-buscar-tag');
+if (botaoBuscarTag) {
+  botaoBuscarTag.addEventListener('click', () => buscarPorTag());
+}
+
+// Botão para limpar busca de tag
+const botaoLimparBusca = getById('botao-limpar-busca');
+if (botaoLimparBusca) {
+  botaoLimparBusca.addEventListener('click', () => {
+    const campo = getById('campo-busca-tag') as HTMLInputElement | null;
+    if (campo) {
+      campo.value = '';
+    }
+    listarPostagens(); // lista todas as postagens sem filtro
+  });
 }
 

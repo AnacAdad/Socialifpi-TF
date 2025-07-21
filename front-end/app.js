@@ -12,19 +12,28 @@ function getById(id) {
     return document.getElementById(id);
 }
 const apiUrl = 'http://localhost:3000/socialifpi/postagem'; // Atualize a URL conforme necessário
-function listarPostagens() {
+function listarPostagens(filtroTag) {
     return __awaiter(this, void 0, void 0, function* () {
         const response = yield fetch(apiUrl);
         const postagens = yield response.json();
+        const postagensFiltradas = filtroTag
+            ? postagens.filter(p => p.tags && p.tags.includes(filtroTag))
+            : postagens;
         const postagensElement = getById('postagens');
         if (postagensElement) {
             postagensElement.innerHTML = ''; // Limpa as postagens anteriores
-            postagens.forEach(postagem => {
+            postagensFiltradas.forEach(postagem => {
                 const article = document.createElement('article');
                 const titulo = document.createElement('h2');
                 titulo.textContent = postagem.titulo;
                 const conteudo = document.createElement('p');
                 conteudo.textContent = postagem.conteudo;
+                if (postagem.tags && postagem.tags.length > 0) {
+                    const tagsElement = document.createElement('p');
+                    tagsElement.textContent = `Tags: ${postagem.tags.join(', ')}`;
+                    tagsElement.className = 'tags-postagem';
+                    article.appendChild(tagsElement);
+                }
                 if (postagem.imagem) {
                     const img = document.createElement('img');
                     img.src = postagem.imagem;
@@ -143,6 +152,22 @@ function listarPostagens() {
         }
     });
 }
+function buscarPorTag() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const campo = document.getElementById('campo-busca-tag');
+        if (!campo) {
+            console.error('Campo de busca não encontrado!');
+            return;
+        }
+        const tag = campo.value.trim();
+        if (tag) {
+            listarPostagens(tag); // Chama com filtro
+        }
+        else {
+            listarPostagens(); // Lista tudo
+        }
+    });
+}
 // === ALTERAÇÃO ===
 function excluirComentario(postagemId, comentarioId) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -236,13 +261,15 @@ function incluirPostagem() {
         const tituloInput = getById('titulo');
         const conteudoInput = getById('conteudo');
         const imagemInput = getById('imagem');
+        const tagsInput = getById('tags');
         if (tituloInput && conteudoInput) {
             const novaPostagem = {
                 titulo: tituloInput.value,
                 conteudo: conteudoInput.value,
                 data: new Date().toISOString(),
                 curtidas: 0,
-                imagem: (imagemInput === null || imagemInput === void 0 ? void 0 : imagemInput.value) || ''
+                imagem: (imagemInput === null || imagemInput === void 0 ? void 0 : imagemInput.value) || '',
+                tags: (tagsInput === null || tagsInput === void 0 ? void 0 : tagsInput.value.split(',').map(tag => tag.trim()).filter(tag => tag !== '')) || []
             };
             const response = yield fetch(apiUrl, {
                 method: 'POST',
@@ -256,6 +283,9 @@ function incluirPostagem() {
             // Limpa os campos do formulário
             tituloInput.value = '';
             conteudoInput.value = '';
+            imagemInput.value = '';
+            if (tagsInput)
+                tagsInput.value = '';
         }
     });
 }
@@ -300,5 +330,21 @@ listarPostagens();
 const botaoNovaPostagem = getById("botaoNovaPostagem");
 if (botaoNovaPostagem) {
     botaoNovaPostagem.addEventListener('click', incluirPostagem);
+}
+// Botão para buscar por tag
+const botaoBuscarTag = getById('botao-buscar-tag');
+if (botaoBuscarTag) {
+    botaoBuscarTag.addEventListener('click', () => buscarPorTag());
+}
+// Botão para limpar busca de tag
+const botaoLimparBusca = getById('botao-limpar-busca');
+if (botaoLimparBusca) {
+    botaoLimparBusca.addEventListener('click', () => {
+        const campo = getById('campo-busca-tag');
+        if (campo) {
+            campo.value = '';
+        }
+        listarPostagens(); // lista todas as postagens sem filtro
+    });
 }
 //# sourceMappingURL=app.js.map

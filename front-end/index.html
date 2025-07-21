@@ -36,10 +36,19 @@
                     <label for="conteudo">Conteúdo:</label>
                     <textarea id="conteudo" name="conteudo" required></textarea>
                     <br>
+                    <input type="text" id="tags" placeholder="Tags (separe por vírgulas)" />
+                    <br>
                     <label for="imagem">URL da Imagem (opcional):</label>
                     <input type="text" id="imagem" name="imagem" placeholder="https://exemplo.com/imagem.jpg">
                     <br>
                     <button id="botaoNovaPostagem">Incluir Postagem</button>
+                    <br>
+                    <div id="busca-tag-container">
+                        <input id="campo-busca-tag" type="text" placeholder="Buscar por tag" />
+                        <button id="botao-buscar-tag">Buscar</button>
+                        <button id="botao-limpar-busca">Limpar</button>
+                    </div>
+
                 </div>
 
             </section>

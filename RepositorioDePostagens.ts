@@ -23,7 +23,8 @@ export class RepositorioDePostagens {
             conteudo: p.getConteudo(),
             data: p.getData().toISOString(),
             curtidas: p.getCurtidas(),
-            imagem: p.getImagem(), 
+            imagem: p.getImagem() || '', 
+            tags: p.getTags() || [],
             comentarios: p.getComentarios().map(com => ({
                 id: com.getId(),
                 postagemId: com.getPostagemId(),
@@ -58,7 +59,9 @@ export class RepositorioDePostagens {
                     obj.titulo,
                     obj.conteudo,
                     new Date(obj.data),
-                    obj.curtidas
+                    obj.curtidas,
+                    obj.imagem || '',        // Carrega a imagem
+                    obj.tags || []           // Carrega as tags
                 );
 
                 if (obj.comentarios) {

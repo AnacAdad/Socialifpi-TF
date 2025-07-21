@@ -45,7 +45,8 @@ class RepositorioDePostagens {
             conteudo: p.getConteudo(),
             data: p.getData().toISOString(),
             curtidas: p.getCurtidas(),
-            imagem: p.getImagem(),
+            imagem: p.getImagem() || '',
+            tags: p.getTags() || [],
             comentarios: p.getComentarios().map(com => ({
                 id: com.getId(),
                 postagemId: com.getPostagemId(),
@@ -71,7 +72,9 @@ class RepositorioDePostagens {
             }
             const json = JSON.parse(dados);
             this.postagens = json.map((obj) => {
-                const postagem = new Postagem_1.Postagem(obj.id, obj.titulo, obj.conteudo, new Date(obj.data), obj.curtidas);
+                const postagem = new Postagem_1.Postagem(obj.id, obj.titulo, obj.conteudo, new Date(obj.data), obj.curtidas, obj.imagem || '', // Carrega a imagem
+                obj.tags || [] // Carrega as tags
+                );
                 if (obj.comentarios) {
                     obj.comentarios.forEach((c) => {
                         const comentario = new comentario_1.Comentario(c.id, c.postagemId, c.autor, c.texto, new Date(c.data));

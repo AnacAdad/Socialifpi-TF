@@ -10,14 +10,17 @@ export class Postagem {
     // ===== ALTERAÇÃO =====
     // Para adicionar uma imagem no post
     private imagem?: string;
+    private tags?: string[];
+;
 
-    constructor(id: number, titulo: string, conteudo: string, data: Date, curtidas: number, imagem?: string) {
+    constructor(id: number, titulo: string, conteudo: string, data: Date, curtidas: number, imagem?: string, tags: string[] = []) {
         this.id = id;
         this.titulo = titulo;
         this.conteudo = conteudo;
         this.data = data;
         this.curtidas = curtidas;
         this.imagem = imagem;
+        this.tags = tags;
     }
 
     public getId(): number {
@@ -58,6 +61,15 @@ export class Postagem {
     public setImagem(novaImagem: string | undefined): void {
         this.imagem = novaImagem;
     }
+
+    public getTags(): string[] {
+        return this.tags || [];
+    }
+
+    public setTags(tags: string[]): void {
+        this.tags = tags;
+    }
+
 
     public adicionarComentario(comentario: Comentario): void {
         this.comentarios.push(comentario);
