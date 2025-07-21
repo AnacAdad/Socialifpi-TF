@@ -40,11 +40,17 @@ function listarPostagens() {
                 const botaoExcluir = document.createElement('button');
                 botaoExcluir.textContent = 'Excluir';
                 botaoExcluir.addEventListener('click', () => excluirPostagem(postagem.id));
+                //========== ALTERAÇÃO ============
+                // Incluindo opção pra editar postagem
+                const botaoAlterar = document.createElement('button');
+                botaoAlterar.textContent = 'Alterar';
+                botaoAlterar.addEventListener('click', () => alterarPostagem(postagem));
                 const botaoComentar = document.createElement('button');
                 botaoComentar.textContent = 'Comentar';
                 botoesDiv.appendChild(botaoCurtir);
                 botoesDiv.appendChild(botaoExcluir);
                 botoesDiv.appendChild(botaoComentar);
+                botoesDiv.appendChild(botaoAlterar); // === ALTERAÇÃO === Botão para alterar postagem
                 // Seção de comentários
                 const comentariosSection = document.createElement('section');
                 comentariosSection.className = 'secao-comentarios';
@@ -74,7 +80,7 @@ function listarPostagens() {
                     botaoExcluirComentario.addEventListener('click', () => excluirComentario(postagem.id, comentario.id));
                     const botaoAlterarComentario = document.createElement('button');
                     botaoAlterarComentario.textContent = 'Alterar';
-                    botaoAlterarComentario.addEventListener('click', () => mostrarFormularioAlterarComentario(postagem.id, comentario));
+                    botaoAlterarComentario.addEventListener('click', () => alterarComentario(postagem.id, comentario));
                     botoesComentario.appendChild(botaoExcluirComentario);
                     botoesComentario.appendChild(botaoAlterarComentario);
                     comentarioDiv.appendChild(textoDiv);
@@ -148,7 +154,37 @@ function excluirComentario(postagemId, comentarioId) {
     });
 }
 // === ALTERAÇÃO ===
-function mostrarFormularioAlterarComentario(postagemId, comentario) {
+// Função para editar uma postagem existente
+function alterarPostagem(postagem) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const novoTitulo = prompt('Editar título:', postagem.titulo);
+        if (novoTitulo === null)
+            return;
+        const novoConteudo = prompt('Editar conteúdo:', postagem.conteudo);
+        if (novoConteudo === null)
+            return;
+        if (!novoTitulo.trim() || !novoConteudo.trim()) {
+            alert('Título e conteúdo não podem ser vazios.');
+            return;
+        }
+        const response = yield fetch(`${apiUrl}/${postagem.id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                titulo: novoTitulo,
+                conteudo: novoConteudo
+            })
+        });
+        if (response.ok) {
+            listarPostagens();
+        }
+        else {
+            alert('Erro ao alterar a postagem');
+        }
+    });
+}
+// === ALTERAÇÃO ===
+function alterarComentario(postagemId, comentario) {
     return __awaiter(this, void 0, void 0, function* () {
         // Cria um prompt simples para editar o texto
         const novoTexto = prompt('Editar comentário:', comentario.texto);

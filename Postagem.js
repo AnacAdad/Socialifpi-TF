@@ -28,6 +28,12 @@ class Postagem {
     getComentarios() {
         return this.comentarios;
     }
+    setTitulo(novoTitulo) {
+        this.titulo = novoTitulo;
+    }
+    setConteudo(novoConteudo) {
+        this.conteudo = novoConteudo;
+    }
     adicionarComentario(comentario) {
         this.comentarios.push(comentario);
     }

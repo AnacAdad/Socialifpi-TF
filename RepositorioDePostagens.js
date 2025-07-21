@@ -26,6 +26,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.RepositorioDePostagens = void 0;
 const fs = __importStar(require("fs"));
 const Postagem_1 = require("./Postagem");
+const comentario_1 = require("./comentario");
 const CAMINHO_ARQUIVO = './postagens.json';
 class RepositorioDePostagens {
     // === ALTERAÇÃO ===
@@ -63,13 +64,24 @@ class RepositorioDePostagens {
                 return;
             }
             const dados = fs.readFileSync(CAMINHO_ARQUIVO, 'utf-8').trim();
-            if (!dados) { // arquivo vazio
+            if (!dados) {
                 this.postagens = [];
                 return;
             }
             const json = JSON.parse(dados);
-            // Supondo que você precise converter os dados para objetos Postagem:
-            this.postagens = json.map((obj) => new Postagem_1.Postagem(obj.id, obj.titulo, obj.conteudo, new Date(obj.data), obj.curtidas));
+            this.postagens = json.map((obj) => {
+                const postagem = new Postagem_1.Postagem(obj.id, obj.titulo, obj.conteudo, new Date(obj.data), obj.curtidas);
+                if (obj.comentarios) {
+                    obj.comentarios.forEach((c) => {
+                        const comentario = new comentario_1.Comentario(c.id, c.postagemId, c.autor, c.texto, new Date(c.data));
+                        postagem.adicionarComentario(comentario);
+                    });
+                }
+                return postagem;
+            });
+            // Atualiza o próximo ID baseado no maior ID existente
+            const maioresIds = this.postagens.map(p => p.getId());
+            this.nextId = maioresIds.length > 0 ? Math.max(...maioresIds) + 1 : 1;
         }
         catch (error) {
             console.error('Erro ao carregar postagens do arquivo:', error);
@@ -86,13 +98,11 @@ class RepositorioDePostagens {
         return postagem;
     }
     // Método para alterar uma postagem existente
-    alterar(id, titulo, conteudo, data, curtidas) {
+    alterar(id, titulo, conteudo) {
         const postagem = this.consultar(id);
         if (postagem) {
-            postagem['titulo'] = titulo;
-            postagem['conteudo'] = conteudo;
-            postagem['data'] = data;
-            postagem['curtidas'] = curtidas;
+            postagem.setTitulo(titulo);
+            postagem.setConteudo(conteudo);
             // === ALTERAÇÃO ===
             // Chama o método para salvar os dados no json
             this.salvarNoArquivo();

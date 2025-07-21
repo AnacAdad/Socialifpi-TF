@@ -39,6 +39,14 @@ export class Postagem {
         return this.comentarios;
     }
 
+    public setTitulo(novoTitulo: string): void {
+        this.titulo = novoTitulo;
+    }
+
+    public setConteudo(novoConteudo: string): void {
+        this.conteudo = novoConteudo;
+    }
+
     public adicionarComentario(comentario: Comentario): void {
         this.comentarios.push(comentario);
     }

@@ -40,20 +40,28 @@ app.get(PATH_ID, (req, res) => {
 // Endpoint para incluir uma nova postagem
 app.post(PATH, (req, res) => {
     const { titulo, conteudo, data, curtidas } = req.body;
-    const novaPostagem = new Postagem_1.Postagem(0, titulo, conteudo, new Date(data), curtidas || 0);
+    const dataPostagem = data ? new Date(data) : new Date();
+    const curtidasPostagem = typeof curtidas === 'number' ? curtidas : 0;
+    const novaPostagem = new Postagem_1.Postagem(0, titulo, conteudo, dataPostagem, curtidasPostagem);
     const postagemIncluida = repositorio.incluir(novaPostagem);
     res.status(201).json(postagemIncluida);
 });
+// === ALTERAÇÃO ===
 // Endpoint para alterar uma postagem existente
-app.put(PATH_ID, (req, res) => {
+app.put('/socialifpi/postagem/:id', (req, res) => {
     const id = parseInt(req.params.id);
-    const { titulo, conteudo, data, curtidas } = req.body;
-    const sucesso = repositorio.alterar(id, titulo, conteudo, data, curtidas);
-    if (!sucesso) {
-        res.status(404).json({ message: 'Postagem não encontrada' });
-        return;
+    const { titulo, conteudo } = req.body;
+    if (!titulo || !conteudo) {
+        return res.status(400).json({ message: 'Título e conteúdo são obrigatórios' });
     }
-    res.status(200).json({ message: 'Postagem alterada com sucesso' });
+    const postagem = repositorio.consultar(id);
+    if (!postagem) {
+        return res.status(404).json({ message: 'Postagem não encontrada' });
+    }
+    postagem.setTitulo(titulo);
+    postagem.setConteudo(conteudo);
+    repositorio.salvarNoArquivo();
+    res.status(200).json({ message: 'Postagem atualizada' });
 });
 // Endpoint para excluir uma postagem pelo ID
 app.delete(PATH_ID, (req, res) => {
