@@ -436,5 +436,54 @@ iframe {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+.integrantes {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  padding: 40px 20px;
+  color: #ffffff;
+}
+
+.perfil {
+  width: 45%;
+  background-color: #8f1e69;
+  padding: 20px;
+  margin: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.perfil .nome {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.5em;
+  text-align: center;
+  color: #f2e8ef;
+}
+
+.perfil .foto {
+  display: block;
+  margin: 20px auto;
+  width: 100%;
+  max-width: 300px;
+  border: 2px solid #f871cf;
+  border-radius: 12px;
+}
+
+.perfil .info h3 {
+  margin-top: 20px;
+  font-size: 1.3em;
+  color: #fff;
+}
+
+.perfil .info ul {
+  list-style-type: none;
+  padding: 0;
+  line-height: 1.7;
+}
+
+.perfil .info ul li {
+  margin-bottom: 8px;
+}
+
 
 /* === ALTERAÇÃO === */
