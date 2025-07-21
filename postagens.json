@@ -30,23 +30,5 @@
       "Tecnologia"
     ],
     "comentarios": []
-  },
-  {
-    "id": 2,
-    "titulo": "Trabalho Final de PII",
-    "conteudo": "Engloba todas os conteúdos da disciplina e um pouco mais.",
-    "data": "2025-07-21T00:20:12.876Z",
-    "curtidas": 2,
-    "imagem": "",
-    "tags": [],
-    "comentarios": [
-      {
-        "id": 1753057226935,
-        "postagemId": 2,
-        "autor": "Sâmia",
-        "texto": "Concordo plenamente =D",
-        "data": "2025-07-21T00:20:26.935Z"
-      }
-    ]
   }
 ]

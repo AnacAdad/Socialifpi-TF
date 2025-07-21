@@ -1,10 +1,10 @@
 /* Variáveis de cor */
 :root {
-    --cor-principal: #1A1A1A; /* Cinza escuro quase preto */
-    --cor-secundaria: #333333; /* Cinza escuro */
-    --cor-fundo: #121212; /* Preto para o fundo */
-    --cor-texto: #EAEAEA; /* Cinza claro para o texto */
-    --cor-texto-secundario: #CCCCCC; /* Cinza um pouco mais escuro para textos secundários */
+    --cor-principal:  #f197ba; /* Cinza escuro quase preto */
+    --cor-secundaria: #9d9696; /* Cinza escuro */
+    --cor-fundo: #706363; /* Preto para o fundo */
+    --cor-texto: #fbf8f8; /* Cinza claro para o texto */
+    --cor-texto-secundario: #fffbfb; /* Cinza um pouco mais escuro para textos secundários */
     --cor-borda: #444444; /* Cinza escuro para bordas */
     --cor-hover: #555555; /* Cinza intermediário para efeitos hover */
 }
@@ -14,6 +14,13 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+#discentes {
+    font-style: italic;
+    font-family: cursive;
+    color: #893a58;
+    font-size: small;
 }
 
 body {
@@ -107,7 +114,7 @@ section#formulario {
 
 .campos button {
     padding: 10px 20px;
-    background-color: var(--cor-principal);
+    background-color: rgb(5, 5, 5);
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -116,7 +123,8 @@ section#formulario {
 }
 
 .campos button:hover {
-    background-color: var(--cor-hover);
+    background-color: #fdb8d3;
+    color: #444444;
 }
 
 section#postagens article {
@@ -148,7 +156,7 @@ section#postagens article .data {
 
 section#postagens article button {
     padding: 5px 10px;
-    background-color: var(--cor-principal);
+    background-color: #893a58;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -257,7 +265,7 @@ footer p {
 }
 
 .comentario-item {
-    background-color: var(--cor-principal);
+    background-color: #444444;
     border-radius: 5px;
     padding: 8px 12px;
     margin-bottom: 8px;
@@ -350,6 +358,9 @@ footer p {
     height: auto;
     margin-top: 10px;
     border-radius: 8px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Container do campo de busca e botões */
@@ -372,7 +383,7 @@ footer p {
 }
 
 #campo-busca-tag:focus {
-  border-color: #007bff;
+  border-color: #fdc0fc;
   outline: none;
 }
 
@@ -391,7 +402,8 @@ footer p {
 
 #botao-buscar-tag:hover,
 #botao-limpar-busca:hover {
-  background-color: #0056b3;
+  background-color: #fdb8d3;
+  color: #444444;
 }
 
 /* Responsivo: no mobile, botões ficam em linha abaixo do input */
@@ -406,25 +418,5 @@ footer p {
     padding: 10px 0;
   }
 }
-
-#botao-proximas {
-  background-color: #007bff; /* azul padrão */
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  margin: 20px auto;
-  display: block;
-  font-size: 16px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  user-select: none;
-}
-
-#botao-proximas:hover {
-  background-color: #0056b3; /* azul mais escuro no hover */
-}
-
 
 /* === ALTERAÇÃO === */

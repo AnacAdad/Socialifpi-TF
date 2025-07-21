@@ -388,6 +388,7 @@ async function excluirPostagem(id: number) {
 }
 
 
+
 // Inicializa a aplicação
 listarPostagens();
 
