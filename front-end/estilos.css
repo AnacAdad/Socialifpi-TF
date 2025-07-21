@@ -485,5 +485,117 @@ iframe {
   margin-bottom: 8px;
 }
 
+/* Container principal do portfólio para centralizar o conteúdo */
+.container-portfolio {
+    max-width: 1200px;
+    margin: 0 auto; /* Centraliza o container na página */
+    padding: 20px;
+}
+
+/* Título principal da seção do portfólio */
+.container-portfolio h1 {
+    text-align: center;
+    font-size: 2.8em;
+    color: #ffffff;
+    margin-bottom: 50px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5); /* Sombra para destacar o título */
+}
+
+/* Estilo de cada card de projeto */
+.projeto {
+    background-color: rgba(255, 255, 255, 0.05); /* Fundo semi-transparente para efeito de profundidade */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px; /* Bordas arredondadas */
+    margin-bottom: 40px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column; /* <<< ALTERAÇÃO PRINCIPAL: Empilha os itens verticalmente */
+    align-items: center; /* Centraliza os itens no card */
+    gap: 25px; /* Espaço entre a imagem e a descrição */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden; /* Garante que nada saia do card arredondado */
+}
+
+/* Efeito de hover para os cards de projeto */
+.projeto:hover {
+    transform: translateY(-10px); /* Eleva o card ao passar o mouse */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilo da imagem do projeto */
+.projeto img {
+    width: 100%;
+    max-width: 600px; /* Define uma largura máxima para a imagem não ficar muito grande */
+    height: auto;
+    border-radius: 10px; /* Bordas arredondadas para a imagem */
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Container da descrição do projeto */
+.descricao {
+    width: 100%; /* Faz a descrição ocupar toda a largura disponível */
+    text-align: left; /* Alinha o texto à esquerda para melhor leitura */
+}
+
+/* Títulos dos projetos */
+.descricao h2 {
+    font-size: 2em;
+    color: #f197ba; /* Cor de destaque para o título do projeto */
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+/* Subtítulos (Funcionalidades) */
+.descricao h3 {
+    font-size: 1.4em;
+    color: #ffffff;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    border-left: 4px solid #61dafb; /* Detalhe visual para o subtítulo */
+    padding-left: 10px;
+}
+
+/* Parágrafos de texto */
+.descricao p {
+    font-size: 1.1em;
+    line-height: 1.7; /* Espaçamento entre linhas para melhor legibilidade */
+    color: #cccccc; /* Cor de texto um pouco mais suave */
+}
+
+/* Lista de funcionalidades */
+.descricao ul {
+    list-style: none; /* Remove os marcadores padrão da lista */
+    padding: 0;
+    margin-top: 10px;
+}
+
+.descricao ul li {
+    font-size: 1em;
+    margin-bottom: 12px;
+    padding-left: 5px;
+    display: flex;
+    align-items: center;
+}
+
+/* --- Media Query para Responsividade --- */
+
+/* Ajustes finos para telas menores */
+@media (max-width: 768px) {
+    .projeto {
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .container-portfolio h1 {
+        font-size: 2.2em;
+    }
+
+    .descricao h2 {
+        font-size: 1.8em;
+    }
+}
+
 
 /* === ALTERAÇÃO === */
