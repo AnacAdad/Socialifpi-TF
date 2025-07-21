@@ -25,6 +25,13 @@ function listarPostagens() {
                 titulo.textContent = postagem.titulo;
                 const conteudo = document.createElement('p');
                 conteudo.textContent = postagem.conteudo;
+                if (postagem.imagem) {
+                    const img = document.createElement('img');
+                    img.src = postagem.imagem;
+                    img.alt = `Imagem da postagem: ${postagem.titulo}`;
+                    img.className = 'imagem-postagem'; // Você pode definir estilo no CSS
+                    article.appendChild(img);
+                }
                 const data = document.createElement('p');
                 data.className = 'data';
                 data.textContent = new Date(postagem.data).toLocaleDateString();
@@ -228,12 +235,14 @@ function incluirPostagem() {
     return __awaiter(this, void 0, void 0, function* () {
         const tituloInput = getById('titulo');
         const conteudoInput = getById('conteudo');
+        const imagemInput = getById('imagem');
         if (tituloInput && conteudoInput) {
             const novaPostagem = {
                 titulo: tituloInput.value,
                 conteudo: conteudoInput.value,
                 data: new Date().toISOString(),
-                curtidas: 0
+                curtidas: 0,
+                imagem: (imagemInput === null || imagemInput === void 0 ? void 0 : imagemInput.value) || ''
             };
             const response = yield fetch(apiUrl, {
                 method: 'POST',

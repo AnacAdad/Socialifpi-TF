@@ -7,13 +7,17 @@ export class Postagem {
     private data: Date;
     private curtidas: number;
     private comentarios: Comentario[] = [];
+    // ===== ALTERAÇÃO =====
+    // Para adicionar uma imagem no post
+    private imagem?: string;
 
-    constructor(id: number, titulo: string, conteudo: string, data: Date, curtidas: number) {
+    constructor(id: number, titulo: string, conteudo: string, data: Date, curtidas: number, imagem?: string) {
         this.id = id;
         this.titulo = titulo;
         this.conteudo = conteudo;
         this.data = data;
         this.curtidas = curtidas;
+        this.imagem = imagem;
     }
 
     public getId(): number {
@@ -24,8 +28,16 @@ export class Postagem {
         return this.titulo;
     }
 
+    public setTitulo(novoTitulo: string): void {
+        this.titulo = novoTitulo;
+    }
+
     public getConteudo(): string {
         return this.conteudo;
+    }
+
+    public setConteudo(novoConteudo: string): void {
+        this.conteudo = novoConteudo;
     }
 
     public getData(): Date {
@@ -39,12 +51,12 @@ export class Postagem {
         return this.comentarios;
     }
 
-    public setTitulo(novoTitulo: string): void {
-        this.titulo = novoTitulo;
+    public getImagem(): string | undefined {
+        return this.imagem;
     }
 
-    public setConteudo(novoConteudo: string): void {
-        this.conteudo = novoConteudo;
+    public setImagem(novaImagem: string | undefined): void {
+        this.imagem = novaImagem;
     }
 
     public adicionarComentario(comentario: Comentario): void {

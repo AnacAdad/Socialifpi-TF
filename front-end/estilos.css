@@ -345,4 +345,12 @@ footer p {
     background-color: var(--cor-hover);
 }
 
+.imagem-postagem {
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+    border-radius: 8px;
+}
+
+
 /* === ALTERAÇÃO === */

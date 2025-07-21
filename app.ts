@@ -50,11 +50,11 @@ app.get(PATH_ID, (req: Request, res: Response) => {
 
 // Endpoint para incluir uma nova postagem
 app.post(PATH, (req: Request, res: Response) => {
-    const { titulo, conteudo, data, curtidas } = req.body;
+    const { titulo, conteudo, data, curtidas, imagem } = req.body;
     const dataPostagem = data ? new Date(data) : new Date();
     const curtidasPostagem = typeof curtidas === 'number' ? curtidas : 0;
 
-    const novaPostagem = new Postagem(0, titulo, conteudo, dataPostagem, curtidasPostagem);
+    const novaPostagem = new Postagem(0, titulo, conteudo, new Date(data), curtidas || 0, imagem);
 
     const postagemIncluida = repositorio.incluir(novaPostagem);
     res.status(201).json(postagemIncluida);
@@ -63,9 +63,9 @@ app.post(PATH, (req: Request, res: Response) => {
 // === ALTERAÇÃO ===
 // Endpoint para alterar uma postagem existente
 
-app.put('/socialifpi/postagem/:id', (req, res) => {
+app.put(PATH_ID, (req, res) => {
   const id = parseInt(req.params.id);
-  const { titulo, conteudo } = req.body;
+  const { titulo, conteudo, imagem } = req.body;
 
   if (!titulo || !conteudo) {
     return res.status(400).json({ message: 'Título e conteúdo são obrigatórios' });
@@ -78,6 +78,9 @@ app.put('/socialifpi/postagem/:id', (req, res) => {
 
   postagem.setTitulo(titulo);
   postagem.setConteudo(conteudo);
+  if (imagem !== undefined) {
+    postagem.setImagem(imagem);
+  }
 
   repositorio.salvarNoArquivo();
 

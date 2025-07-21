@@ -23,6 +23,7 @@ export class RepositorioDePostagens {
             conteudo: p.getConteudo(),
             data: p.getData().toISOString(),
             curtidas: p.getCurtidas(),
+            imagem: p.getImagem(), 
             comentarios: p.getComentarios().map(com => ({
                 id: com.getId(),
                 postagemId: com.getPostagemId(),

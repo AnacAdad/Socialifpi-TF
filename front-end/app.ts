@@ -21,6 +21,7 @@ interface Postagem {
     data: string;
     curtidas: number;
     comentarios: Comentario[];
+    imagem?: string; 
 }
 
 async function listarPostagens() {
@@ -39,6 +40,15 @@ async function listarPostagens() {
 
             const conteudo = document.createElement('p');
             conteudo.textContent = postagem.conteudo;
+
+            if (postagem.imagem) {
+                const img = document.createElement('img');
+                img.src = postagem.imagem;
+                img.alt = `Imagem da postagem: ${postagem.titulo}`;
+                img.className = 'imagem-postagem'; // Você pode definir estilo no CSS
+                article.appendChild(img);
+            }
+
 
             const data = document.createElement('p');
             data.className = 'data';
@@ -276,13 +286,15 @@ async function curtirPostagem(id: number, curtidasElement: HTMLParagraphElement)
 async function incluirPostagem() {
     const tituloInput = <HTMLInputElement>getById('titulo');
     const conteudoInput = <HTMLInputElement>getById('conteudo');
+    const imagemInput = <HTMLInputElement>getById('imagem');
 
     if (tituloInput && conteudoInput) {
         const novaPostagem = {
             titulo: tituloInput.value,
             conteudo: conteudoInput.value,
             data: new Date().toISOString(),
-            curtidas: 0
+            curtidas: 0,
+            imagem: imagemInput?.value || ''
         };
 
         const response = await fetch(apiUrl, {
