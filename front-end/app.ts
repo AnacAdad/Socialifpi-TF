@@ -67,7 +67,13 @@ async function listarPostagens(filtroTag?: string) {
 
             const data = document.createElement('p');
             data.className = 'data';
-            data.textContent = new Date(postagem.data).toLocaleDateString();
+            const dataObj = new Date(postagem.data);
+            const dataFormatada = dataObj.toLocaleDateString('pt-BR');
+            const horaFormatada = dataObj.toLocaleTimeString('pt-BR', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            data.textContent = `Publicado em ${dataFormatada} às ${horaFormatada}`;
 
             const curtidas = document.createElement('p');
             curtidas.textContent = `Curtidas: ${postagem.curtidas}`;

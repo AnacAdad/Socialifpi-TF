@@ -1,8 +1,38 @@
 [
   {
+    "id": 9,
+    "titulo": "Tech",
+    "conteudo": "Novos sistemas com inteligência artificial",
+    "data": "2025-07-22T02:12:39.203Z",
+    "curtidas": 2,
+    "imagem": "https://scansource.com.br/wp-content/uploads/2024/02/Imagem-Principal.jpg",
+    "tags": [
+      "Tecnologia"
+    ],
+    "comentarios": []
+  },
+  {
+    "id": 8,
+    "titulo": "Bom dia !",
+    "conteudo": "Belo dia de sol.",
+    "data": "2025-07-22T02:08:54.542Z",
+    "curtidas": 0,
+    "imagem": "",
+    "tags": [],
+    "comentarios": [
+      {
+        "id": 1753150143054,
+        "postagemId": 8,
+        "autor": "Sâmia",
+        "texto": "opa =)",
+        "data": "2025-07-22T02:09:03.054Z"
+      }
+    ]
+  },
+  {
     "id": 4,
     "titulo": "Doença Celíaca",
-    "conteudo": "A doença celíaca é uma condição autoimune desencadeada pela ingestão de glúten, uma proteína encontrada em trigo, cevada e centeio. Os sintomas podem variar amplamente, mas incluem diarreia, dor abdominal, inchaço, fadiga e perda de peso. O tratamento principal é uma dieta rigorosa sem glúten, que geralmente leva à remissão dos sintomas e à recuperação do intestino.",
+    "conteudo": "A doença celíaca é uma condição autoimune desencadeada pela ingestão de glúten, uma proteína encontrada em trigo, cevada e centeio. Os sintomas podem variar amplamente, mas incluem diarreia, dor abdominal, inchaço, fadiga e perda de peso. O tratamento principal é uma dieta rigorosa sem glúten, que geralmente leva à remissão dos sintomas e à recuperação do intestino. É essencial ter cuidado com a contaminação cruzada",
     "data": "2025-07-21T02:01:39.270Z",
     "curtidas": 1,
     "imagem": "https://checkupmedicina.com.br/wp-content/uploads/2025/01/image-12.png",
@@ -14,7 +44,7 @@
         "id": 1753063358203,
         "postagemId": 4,
         "autor": "Sâmia",
-        "texto": "Doença bem complicada essa =(",
+        "texto": "Doença bem complicada essa. Triste",
         "data": "2025-07-21T02:02:38.203Z"
       }
     ]
